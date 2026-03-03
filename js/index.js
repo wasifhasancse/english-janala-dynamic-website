@@ -5,11 +5,26 @@ const lessonButtonSection = () => {
     .then((getButtonJson) => showButton(getButtonJson.data));
 };
 
+// remove Lesson Active Button
+const removeLessonActiveButton = () => {
+  const lessonAllButton = document.querySelectorAll(".lesson-button");
+  lessonAllButton.forEach((element) => {
+    element.classList.remove("active");
+  });
+};
+
 // get clicked lesson button word data
 const getWordLevel = (lessonButtonId) => {
   fetch(`https://openapi.programming-hero.com/api/level/${lessonButtonId}`)
     .then((getWordData) => getWordData.json())
-    .then((getWordDataJson) => showWordData(getWordDataJson.data));
+    .then((getWordDataJson) => {
+      removeLessonActiveButton();
+      const getLessonActiveButton = document.getElementById(
+        `lesson-button-${lessonButtonId}`,
+      );
+      getLessonActiveButton.classList.add("active");
+      showWordData(getWordDataJson.data);
+    });
 };
 
 // show clicked lesson button word data
@@ -46,7 +61,7 @@ const showWordData = (getWordData) => {
           <p class="font-bangla font-semibold text-2xl text-gray-600">${wordData.meaning ? wordData.meaning : "Meaning পাওয়া যায় নি"} / ${wordData.pronunciation ? wordData.pronunciation : "Pronunciation পাওয়া যায় নি"}</p>
         </div>
         <div class="flex items-center justify-between">
-          <button class="btn btn-soft btn-primary text-xl"><i class="fa-solid fa-circle-info"></i></button>
+          <button onclick="wordDetailsModal.showModal()" class="btn btn-soft btn-primary text-xl"><i class="fa-solid fa-circle-info"></i></button>
           <button class="btn btn-soft btn-primary text-xl"><i class="fa-solid fa-volume-high"></i></button>
         </div>
     `;
@@ -61,9 +76,8 @@ const showButton = (getButtonJson) => {
     const createButton = document.createElement("div");
     // createButton.classList = "btn btn-outline btn-primary group";
     createButton.innerHTML = `
-    <button onclick="getWordLevel(${buttonData.level_no})" class="btn btn-outline btn-primary group">
-    <img class="group-hover:invert"
-      src="./assets/fa-book-open.png" alt="fa-book-open"> Lesson - ${buttonData.level_no}
+    <button id="lesson-button-${buttonData.level_no}" onclick="getWordLevel(${buttonData.level_no})" class="btn btn-outline btn-primary lesson-button">
+    <i class="fa-solid fa-book-open"></i> Lesson - ${buttonData.level_no}
     </button>`;
     lessenButtonContainer.append(createButton);
   });
