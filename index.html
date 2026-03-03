@@ -18,6 +18,10 @@
   <!-- daisyUi and Tailwindcss -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- fontawsome CDN  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -92,7 +96,7 @@
   <!-- hero section end -->
 
   <!-- Let's Learn Vocabularies section start  -->
-  <section class="bg-base-200 ">
+  <section class="bg-base-200">
     <div class="py-10 w-11/12 mx-auto flex flex-col items-center justify-center gap-5">
       <div class="text-center ">
         <h1 class="text-4xl font-bold"><span class="text-sky-400">Let's</span> Learn Vocabularies</h1>
@@ -100,6 +104,26 @@
       <div id="lessons-button" class="flex flex-wrap gap-2.5 items-center justify-center"></div>
     </div>
   </section>
+
+  <!-- Let's Learn Vocabularies section Data start -->
+  <section class="bg-base-200 py-10">
+    <div id="lesson-word-show"
+      class="bg-base-300 p-10 w-11/12 mx-auto rounded-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+      <!-- by default message -->
+      <div
+        class="col-span-full bg-base-300 py-20 w-11/12 mx-auto rounded-xl flex flex-col items-center justify-center text-center gap-5">
+        <p class="font-bangla text-md md:text-lg text-gray-600">
+          আপনি এখনো কোন <span>Lesson Select</span> করেন নি
+        </p>
+        <p class="font-bangla text-xl md:text-4xl font-semibold">
+          একটি Lesson Select করুন।
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <!-- Let's Learn Vocabularies section Data end -->
   <!-- Let's Learn Vocabularies section end -->
 
   <script src="./js/index.js"></script>
