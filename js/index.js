@@ -1,21 +1,34 @@
 // get lesson button API data
 const lessonButtonSection = () => {
+  manageSpinner(true);
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((getButton) => getButton.json())
     .then((getButtonJson) => showButton(getButtonJson.data));
+};
+
+const manageSpinner = (status) => {
+  if (status) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("lesson-word-show").classList.add("hidden");
+  } else {
+    document.getElementById("spinner").classList.add("hidden");
+    document.getElementById("lesson-word-show").classList.remove("hidden");
+  }
 };
 
 // get word details modal section
 const getWordDetails = (wordId) => {
   fetch(`https://openapi.programming-hero.com/api/word/${wordId}`)
     .then((wordDetails) => wordDetails.json())
-    .then((wordDetailsJson) => showWordDetails(wordDetailsJson.data)
-    );
+    .then((wordDetailsJson) => showWordDetails(wordDetailsJson.data));
 };
 
-// show similar Word 
+// show similar Word
 const getSimilarWord = (similarWords) => {
-  const similarWordContainer = similarWords.map((similarWord) => `<span class="btn btn-soft btn-primary">${similarWord}</span>`);
+  const similarWordContainer = similarWords.map(
+    (similarWord) =>
+      `<span class="btn btn-soft btn-primary">${similarWord}</span>`,
+  );
   return similarWordContainer.join(" ");
 };
 
@@ -54,6 +67,7 @@ const removeLessonActiveButton = () => {
 
 // get clicked lesson button word data
 const getWordLevel = (lessonButtonId) => {
+  manageSpinner(true);
   fetch(`https://openapi.programming-hero.com/api/level/${lessonButtonId}`)
     .then((getWordData) => getWordData.json())
     .then((getWordDataJson) => {
@@ -86,6 +100,7 @@ const showWordData = (getWordData) => {
           নেক্সট Lesson এ যান
         </p>`;
     wordDataCardContainer.append(emptyMessage);
+    manageSpinner(false);
     return;
   }
 
@@ -105,6 +120,7 @@ const showWordData = (getWordData) => {
         </div>
     `;
     wordDataCardContainer.append(wordDataCard);
+    manageSpinner(false);
   });
 };
 
@@ -119,6 +135,7 @@ const showButton = (getButtonJson) => {
     <i class="fa-solid fa-book-open"></i> Lesson - ${buttonData.level_no}
     </button>`;
     lessenButtonContainer.append(createButton);
+    manageSpinner(false);
   });
 };
 lessonButtonSection();
